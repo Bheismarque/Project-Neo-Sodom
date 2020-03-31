@@ -85,6 +85,7 @@ public class UIS_Object : MonoBehaviour
                 UISE.getData().Add(data_focus);
 
                 //Parenting Data Addition
+                UISE.getData().Add(data_Accessibility_Parent);
                 data_parent.setData(parentUISO == null ? -1 : parentUISO.UISE.getID(), UIS_Data_Type.Entity);
                 UISE.getData().Add(data_parent);
 
@@ -137,7 +138,15 @@ public class UIS_Object : MonoBehaviour
                         if (parentUISO != parentObject)
                         {
                             setParent(parentObject);
-
+                            
+                            UI_Element element = GetComponent<UI_Element>();
+                            if (element != null && parentObject.GetComponent<UI_Window>() != null)
+                            {
+                                element.transform.parent = parentObject.transform;
+                                element.transform.localRotation = Quaternion.identity;
+                                parentObject.system.updateAvailableSelectiveList();
+                                system = parentObject.system;
+                            }
                         }
                     }
                     data_Accessibility_Parent.setData(0f, UIS_Data_Type.Numeric);

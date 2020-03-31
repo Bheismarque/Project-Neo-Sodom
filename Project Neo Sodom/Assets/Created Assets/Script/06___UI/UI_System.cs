@@ -68,15 +68,20 @@ public class UI_System : MonoBehaviour
         if (focusedWindow != null)
         {
             if (availableSelective != null) { foreach (UI_Element element in availableSelective) { element.unselect(); } }
-            List<UI_Element> availableSelectiveList = new List<UI_Element>();
-            foreach(UI_Element element in focusedWindow.GetComponentsInChildren<UI_Element>())
-            {
-                if(element.isSelectable()) { availableSelectiveList.Add(element); }
-            }
-            availableSelective = availableSelectiveList.ToArray();
+            updateAvailableSelectiveList();
         }
         focusedElement = null;
         focusedElement_pre = null;
+    }
+
+    public void updateAvailableSelectiveList()
+    {
+        List<UI_Element> availableSelectiveList = new List<UI_Element>();
+        foreach (UI_Element element in focusedWindow.GetComponentsInChildren<UI_Element>())
+        {
+            if (element.isSelectable()) { availableSelectiveList.Add(element); }
+        }
+        availableSelective = availableSelectiveList.ToArray();
     }
 
     private static readonly float recognizableAngle = 85f;
