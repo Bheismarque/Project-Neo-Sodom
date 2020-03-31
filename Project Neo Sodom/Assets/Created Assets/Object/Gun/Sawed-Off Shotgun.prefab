@@ -1,0 +1,186 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4078084850013540294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1989376046418638707}
+  - component: {fileID: 3484515103831147573}
+  m_Layer: 22
+  m_Name: Sawed-Off Shotgun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1989376046418638707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4078084850013540294}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 457817297944090059}
+  - {fileID: 3505515311200207824}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3484515103831147573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4078084850013540294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a220e6e65ba3e7c4398cb9662203b983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunType: 1
+  gunCategory: 4
+  posture_aim: 2
+  posture_aimProper: 0
+  fireType: 0
+  damage: {x: 12, y: 15}
+  bulletKind: {fileID: 4341512011122951587, guid: b678d7967b8c8c340ae744b638d10707,
+    type: 3}
+  bulletSpeed: {x: 100, y: 140}
+  bulletNum: 20
+  bulletSpread: 15
+  magazineSize: 2
+  bulletConsumePerShot: 1
+  bulletsInMagazineNum: 2
+  recoil_kick: 10
+  recoil_comback: 1.4
+  recoil_angle_center: 80
+  recoil_angle_random: 20
+  coolTime_val: 0.2
+--- !u!1 &6570250290193142426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3505515311200207824}
+  m_Layer: 22
+  m_Name: Gunpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3505515311200207824
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6570250290193142426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.26040003, y: 0, z: 0.047399998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1989376046418638707}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &906046944588158412
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1989376046418638707}
+    m_Modifications:
+    - target: {fileID: 777032071854800903, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1586
+      objectReference: {fileID: 0}
+    - target: {fileID: 777032071854800903, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0239
+      objectReference: {fileID: 0}
+    - target: {fileID: 777032071854800903, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.047
+      objectReference: {fileID: 0}
+    - target: {fileID: 777032071854800903, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 777032071854800903, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 777032071854800903, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 777032071854800903, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 777032071854800903, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 777032071854800903, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 777032071854800903, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 777032071854800903, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6519051343575267850, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_Name
+      value: sawed-off shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 6519051343575267850, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_Layer
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700059895003441817, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_Layer
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7039718734117821500, guid: a6ed47e4e265164499c6221b0c99dc02,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a6ed47e4e265164499c6221b0c99dc02, type: 3}
+--- !u!4 &457817297944090059 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 777032071854800903, guid: a6ed47e4e265164499c6221b0c99dc02,
+    type: 3}
+  m_PrefabInstance: {fileID: 906046944588158412}
+  m_PrefabAsset: {fileID: 0}

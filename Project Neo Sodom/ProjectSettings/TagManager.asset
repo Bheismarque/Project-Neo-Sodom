@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - NoColision - Bullet
+  - NoColision - Block
+  - NoColision - Visible
+  - NoColision - Camera
+  - NoColision - Bullet Block
+  - NoColision - Bullet Visible
+  - NoColision - Bullet Camera
+  - NoColision - Block Visible
+  - NoColision - Block Camera
+  - NoColision - Visible Camera
+  - NoColision - Bullet Block Visible
+  - NoColision - Bullet Block Camera
+  - NoColision - Bullet Visible Camera
+  - NoColision - Block Visible Camera
+  - NoColision - Bullet Block Visible Camera
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
