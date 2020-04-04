@@ -3869,12 +3869,12 @@ PrefabInstance:
     - target: {fileID: 254976244521218355, guid: 395f70ac8fb4d694c9341c0e7c0d1374,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.087
+      value: 0.08700001
       objectReference: {fileID: 0}
     - target: {fileID: 254976244521218355, guid: 395f70ac8fb4d694c9341c0e7c0d1374,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0222
+      value: -0.022199988
       objectReference: {fileID: 0}
     - target: {fileID: 254976244521218355, guid: 395f70ac8fb4d694c9341c0e7c0d1374,
         type: 3}
@@ -4027,11 +4027,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebuggingMode: 0
-  script: "btn_ItemListItem\n{\n    create[]\n    {\n        this;\n    }\n    clicked[]\n   
-    {\n        temp = (duplicate = \"btn_ItemListItem\").create[];\n        temp.parent
-    = thisWindow;\n        temp.ab_parent = true;\n\n        temp.x = x;\n       
-    temp.y = y + (thisWindow.listCount+=1) * -0.0302;\n        temp.z = z;\n       
-    temp.ab_position = true;\n    }\n}"
+  script: "btn_ItemListItem\n{\n    main[]\n    {\n        thisWindow.topElement
+    = this;\n    }\n    create[window]\n    {\n        parent = window;\n       
+    ab_parent = true;\n        this;\n    }\n    clicked[]\n    {\n        temp =
+    (duplicate = \"btn_ItemListItem\").create[thisWindow];\n\n        temp.x = x-
+    popOutValue;\n        temp.y = thisWindow.topElement.y - ((thisWindow.listCount+=1)
+    * 0.0302);\n        temp.z = z;\n        temp.ab_position = true;\n    }\n}\n"
   selectable: 1
   scale: {x: 1, y: 1}
   componentsSatisfied: 1
@@ -6086,7 +6087,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DebuggingMode: 0
   script: "ItemListWindow\n{\n    create[]\n    {\n        this.listCount = 0;\n       
-    this;\n    }\n\n    clicked[]\n    {\n    }\n}"
+    this.topElement = null;\n        this;\n    }\n\n    clicked[]\n    {\n    }\n}"
 --- !u!1001 &1930312010
 PrefabInstance:
   m_ObjectHideFlags: 0

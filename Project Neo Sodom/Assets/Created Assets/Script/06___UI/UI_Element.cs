@@ -4,7 +4,7 @@ public class UI_Element : UIS_Object
 {
     [SerializeField] private bool selectable = false;
     private bool selected = false;
-    private float selected_popOut = 0.03f;
+    private UIS_Data data_selectedPopOutValue;
     private float selected_popOut_val = 0f;
 
     [SerializeField] [HideInInspector] private Vector2 scale = Vector2.one;
@@ -37,6 +37,12 @@ public class UI_Element : UIS_Object
 
     private UI_Window window = null;
 
+    protected override void setUpDetail()
+    {
+        data_selectedPopOutValue = new UIS_Data("popOutValue", 0.03f, UIS_Data_Type.Numeric);
+        UISE.getData().Add(data_selectedPopOutValue);
+    }
+
     protected override void create()
     {
         window = GetComponentInParent<UI_Window>();
@@ -58,7 +64,7 @@ public class UI_Element : UIS_Object
     private bool doneScaling = false;
     protected override void step()
     {
-        //Scaling
+        //Scaling ========================================================================================================================
         if (deleted)
         {
             bool startScaling;
@@ -101,22 +107,23 @@ public class UI_Element : UIS_Object
         }
         resize();
 
-        //Selection
+        //Selection ========================================================================================================================
         Vector3 localPosition = transform.localPosition;
         
         localPosition.z -= -selected_popOut_val;
-        selected_popOut_val = Util.smoothChange(selected_popOut_val, selected?selected_popOut:0, 2, 1);
+        selected_popOut_val = Util.smoothChange(selected_popOut_val, selected? (float)data_selectedPopOutValue.getData(): 0, 2, 1);
         localPosition.z += -selected_popOut_val;
 
         transform.localPosition = localPosition;
 
+
+        //Rendering ========================================================================================================================
         float windowDepth = 0;
-        if(window != null)
-        {
-            windowDepth = (window.getSystem().transform.position - window.transform.position).magnitude;
-        }
+        if(window != null) { windowDepth = (window.getSystem().transform.position - window.transform.position).magnitude; }
         instanciatedMaterial.renderQueue = 3000 + (int)((transform.parent!=null? - windowDepth + transform.localPosition.z : 0) * -50);
     }
+
+    public void setWindow(UI_Window window) { this.window = window; }
 
     public Vector2 getScale() { return scale; }
     public void setScale(Vector2 scale) { this.scale = scale; }

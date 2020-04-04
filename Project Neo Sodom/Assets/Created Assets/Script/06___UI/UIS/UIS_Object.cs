@@ -10,7 +10,7 @@ public class UIS_Object : MonoBehaviour
     protected UIS_Object parentUISO = null;
     protected UIS_Entity UISE = null;
 
-    private bool initialized = false;
+    private bool isStarted = false;
 
     private UIS_Data data_Accessibility_Position;
     private UIS_Data data_position_x;
@@ -27,13 +27,13 @@ public class UIS_Object : MonoBehaviour
 
     private UIS_Data data_thisWindow;
 
-    private bool initiated = false;
-    private void Start() { initialize(); }
-    public UIS_Object initialize()
+    private bool isSetUp = false;
+    private void Start() { setUp(); }
+    public UIS_Object setUp()
     {
-        if (!initiated)
+        if (!isSetUp)
         {
-            initiated = true;
+            isSetUp = true;
 
             //Parenting
             setParent((transform.parent == null) ? null : transform.parent.GetComponent<UIS_Object>());
@@ -91,14 +91,31 @@ public class UIS_Object : MonoBehaviour
 
                 //Window Data Addition
                 UISE.getData().Add(data_thisWindow);
+
+                setUpDetail();
             }
         }
         return this;
     }
 
+    protected virtual void setUpDetail() {}
+
     private void Update()
     {
-        if (initialized)
+        // START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        if (isSetUp && !isStarted)
+        {
+            isStarted = true;
+            //Only run "Main" if it isn't duplicated.
+            if (UISE != null && !duplicated)
+            {
+                UISE.executeAbility("main", new List<UIS_Data>());
+            }
+            create();
+        }
+
+        // UPDATE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        if (isStarted)
         {
             data_deltaTime.setData(Time.deltaTime, UIS_Data_Type.Numeric);
             step();
@@ -140,10 +157,18 @@ public class UIS_Object : MonoBehaviour
                             setParent(parentObject);
                             
                             UI_Element element = GetComponent<UI_Element>();
-                            if (element != null && parentObject.GetComponent<UI_Window>() != null)
+                            UI_Window parentWindow = parentObject.GetComponent<UI_Window>();
+                            if (element != null && parentWindow != null)
                             {
+                                // Transform Set
                                 element.transform.parent = parentObject.transform;
                                 element.transform.localRotation = Quaternion.identity;
+
+                                // Window Set
+                                element.setWindow(parentWindow);
+                                data_thisWindow.setData(parentWindow == null ? -1 : parentWindow.getUISE() == null ? -1 : parentWindow.getUISE().getID(), UIS_Data_Type.Entity);
+
+                                // System Set
                                 parentObject.system.updateAvailableSelectiveList();
                                 system = parentObject.system;
                             }
@@ -152,15 +177,6 @@ public class UIS_Object : MonoBehaviour
                     data_Accessibility_Parent.setData(0f, UIS_Data_Type.Numeric);
                 }
             }
-        }
-        else
-        {
-            initialized = true;
-            if (UISE != null)
-            {
-                UISE.executeAbility("main", new List<UIS_Data>());
-            }
-            create();
         }
     }
 
@@ -241,18 +257,15 @@ public class UIS_Object : MonoBehaviour
         Destroy(gameObject,1f);
     }
 
+    private bool duplicated = false;
     public UIS_Entity duplicate(UI_System system)
     {
         UIS_Object duplicatedObject = Instantiate(gameObject).GetComponent<UIS_Object>();
         if (system != null) { duplicatedObject.transform.parent = system.transform; }
         duplicatedObject.transform.localRotation = Quaternion.identity;
-        duplicatedObject.initialize();
+        duplicatedObject.setUp();
         duplicatedObject.transform.parent = null;
-
-        if (duplicatedObject.GetComponents<UI_Element>() != null)
-        {
-            //duplicatedObject.transform.parent = system.transform;
-        }
+        duplicatedObject.duplicated = true;
 
         return duplicatedObject.getUISE();
     }
