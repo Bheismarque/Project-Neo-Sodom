@@ -104,6 +104,7 @@ public class UI_Element : UIS_Object
                     doneScaling = scale.y / goalScale.y > .95f;
                 }
             }
+            else { scale = Vector2.zero; }
         }
         resize();
 

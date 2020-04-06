@@ -17,6 +17,11 @@ public class UIS_Object : MonoBehaviour
     private UIS_Data data_position_y;
     private UIS_Data data_position_z;
 
+    private UIS_Data data_Accessibility_LocalPosition;
+    private UIS_Data data_position_lx;
+    private UIS_Data data_position_ly;
+    private UIS_Data data_position_lz;
+
     private UIS_Data data_Accessibility_Focus;
     private UIS_Data data_focus;
 
@@ -46,6 +51,11 @@ public class UIS_Object : MonoBehaviour
             data_position_x = new UIS_Data("x", 0f, UIS_Data_Type.Numeric);
             data_position_y = new UIS_Data("y", 0f, UIS_Data_Type.Numeric);
             data_position_z = new UIS_Data("z", 0f, UIS_Data_Type.Numeric);
+
+            data_Accessibility_LocalPosition = new UIS_Data("ab_localPosition", 0f, UIS_Data_Type.Numeric);
+            data_position_lx = new UIS_Data("lx", 0f, UIS_Data_Type.Numeric);
+            data_position_ly = new UIS_Data("ly", 0f, UIS_Data_Type.Numeric);
+            data_position_lz = new UIS_Data("lz", 0f, UIS_Data_Type.Numeric);
 
             data_Accessibility_Focus = new UIS_Data("ab_focus", -1, UIS_Data_Type.Entity);
             data_focus = new UIS_Data("focus", -1, UIS_Data_Type.Entity);
@@ -79,6 +89,15 @@ public class UIS_Object : MonoBehaviour
                 UISE.getData().Add(data_position_x);
                 UISE.getData().Add(data_position_y);
                 UISE.getData().Add(data_position_z);
+
+                UISE.getData().Add(data_Accessibility_LocalPosition);
+                data_position_x.setData(transform.localPosition.x, UIS_Data_Type.Numeric);
+                data_position_y.setData(transform.localPosition.y, UIS_Data_Type.Numeric);
+                data_position_z.setData(transform.localPosition.z, UIS_Data_Type.Numeric);
+
+                UISE.getData().Add(data_position_lx);
+                UISE.getData().Add(data_position_ly);
+                UISE.getData().Add(data_position_lz);
 
                 //Focus AB & Data Addition
                 UISE.getData().Add(data_Accessibility_Focus);
@@ -122,28 +141,6 @@ public class UIS_Object : MonoBehaviour
 
             if (UISE != null)
             {
-                // Position Setting ------------------------------------------------------------------------------------------------------
-                if (data_Accessibility_Position.getData().Equals(1f))
-                {
-                    transform.position = new Vector3((float)data_position_x.getData(),
-                                                     (float)data_position_y.getData(),
-                                                     (float)data_position_z.getData());
-                    data_Accessibility_Position.setData(0f, UIS_Data_Type.Numeric);
-                }
-                else
-                {
-                    data_position_x.setData(transform.position.x, UIS_Data_Type.Numeric);
-                    data_position_y.setData(transform.position.y, UIS_Data_Type.Numeric);
-                    data_position_z.setData(transform.position.z, UIS_Data_Type.Numeric);
-                }
-
-                // Focus Setting ------------------------------------------------------------------------------------------------------
-                if (data_Accessibility_Focus.getData().Equals(1f))
-                {
-                    if (system != null) { system.setFocus(UIS.getUISEfromUISD(data_focus)); }
-                    data_Accessibility_Focus.setData(0f, UIS_Data_Type.Numeric);
-                }
-
                 // Parenting ------------------------------------------------------------------------------------------------------
                 if (data_Accessibility_Parent.getData().Equals(1f))
                 {
@@ -155,7 +152,7 @@ public class UIS_Object : MonoBehaviour
                         if (parentUISO != parentObject)
                         {
                             setParent(parentObject);
-                            
+
                             UI_Element element = GetComponent<UI_Element>();
                             UI_Window parentWindow = parentObject.GetComponent<UI_Window>();
                             if (element != null && parentWindow != null)
@@ -170,11 +167,51 @@ public class UIS_Object : MonoBehaviour
 
                                 // System Set
                                 parentObject.system.updateAvailableSelectiveList();
-                                system = parentObject.system;
                             }
+                            system = parentObject.system;
                         }
                     }
                     data_Accessibility_Parent.setData(0f, UIS_Data_Type.Numeric);
+                }
+
+
+                // Global Position Setting ------------------------------------------------------------------------------------------------------
+                if (data_Accessibility_Position.getData().Equals(1f))
+                {
+                    transform.position = new Vector3((float)data_position_x.getData(),
+                                                     (float)data_position_y.getData(),
+                                                     (float)data_position_z.getData());
+                    data_Accessibility_Position.setData(0f, UIS_Data_Type.Numeric);
+                }
+                else
+                {
+                    data_position_x.setData(transform.position.x, UIS_Data_Type.Numeric);
+                    data_position_y.setData(transform.position.y, UIS_Data_Type.Numeric);
+                    data_position_z.setData(transform.position.z, UIS_Data_Type.Numeric);
+                }
+
+
+                // Local Position Setting ------------------------------------------------------------------------------------------------------
+                if (data_Accessibility_LocalPosition.getData().Equals(1f))
+                {
+                    transform.localPosition = new Vector3((float)data_position_lx.getData(),
+                                                          (float)data_position_ly.getData(),
+                                                          (float)data_position_lz.getData());
+                    data_Accessibility_LocalPosition.setData(0f, UIS_Data_Type.Numeric);
+                }
+                else
+                {
+                    data_position_lx.setData(transform.localPosition.x, UIS_Data_Type.Numeric);
+                    data_position_ly.setData(transform.localPosition.y, UIS_Data_Type.Numeric);
+                    data_position_lz.setData(transform.localPosition.z, UIS_Data_Type.Numeric);
+                }
+
+
+                // Focus Setting ------------------------------------------------------------------------------------------------------
+                if (data_Accessibility_Focus.getData().Equals(1f))
+                {
+                    if (system != null) { system.setFocus(UIS.getUISEfromUISD(data_focus)); }
+                    data_Accessibility_Focus.setData(0f, UIS_Data_Type.Numeric);
                 }
             }
         }
@@ -214,9 +251,18 @@ public class UIS_Object : MonoBehaviour
         data_position_x = UISE.searchDataField("x");
         data_position_y = UISE.searchDataField("y");
         data_position_z = UISE.searchDataField("z");
+
+        data_Accessibility_LocalPosition = UISE.searchDataField("ab_localPosition");
+        data_position_lx = UISE.searchDataField("lx");
+        data_position_ly = UISE.searchDataField("ly");
+        data_position_lz = UISE.searchDataField("lz");
+
         data_Accessibility_Focus = UISE.searchDataField("ab_focus");
         data_focus = UISE.searchDataField("focus");
+
+        data_Accessibility_Focus = UISE.searchDataField("ab_parent");
         data_parent = UISE.searchDataField("parent");
+
         data_deltaTime = UISE.searchDataField("deltaTime");
         data_thisWindow = UISE.searchDataField("thisWindow");
         this.UISE = UISE;
