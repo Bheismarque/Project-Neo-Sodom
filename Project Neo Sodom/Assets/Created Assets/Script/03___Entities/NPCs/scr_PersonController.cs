@@ -86,6 +86,9 @@ public class scr_PersonController : MonoBehaviour
         if (God.CAMERA != null) { person.lookInput = God.CAMERA.getAngle(); }
         if (God.CAMERA != null) { person.key_cameraSideInvert = Input.GetButtonDown("LB") || Input.GetKeyDown(KeyCode.F); }
 
+        //Interaction Input
+        person.key_interact = Input.GetButton("A") || Input.GetKey(KeyCode.E);
+
         //Gun Input
         person.key_shoot = God.input.mouse_left[1] || God.input.rightTriggered[1];
         person.key_aim = (God.input.mouse_right[1] || God.input.leftTriggered[1]);

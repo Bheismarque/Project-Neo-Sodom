@@ -61,7 +61,7 @@ public class sys_Interactable : MonoBehaviour
     public void setInteractabe(bool interactable) { this.interactable = interactable; }
     public void makeItShine(bool shining) { iconScale = shining && shineable ? Vector3.one * 2 : Vector3.zero; }
     public void setIconPosition(Vector3 position) { icon.transform.position = position; }
-    public void interact(scr_Person interactor)
+    public void interact(scr_Person interactor, float keyPressedTime)
     {
         if (comp_UISystem != null)
         {
@@ -70,19 +70,31 @@ public class sys_Interactable : MonoBehaviour
 
             // Container ==============================================================================================================================
             if (comp_Container != null)
-            {   
-                sys_Item holdingItem = interactor.getHoldingObject();
-                if (holdingItem == null || true)
+            {
+                // Short Click **************************************************
+                if (keyPressedTime < 0.5f)
                 {
-                    comp_UISystem.activate();
-                    //interactor.hold(comp_Item);
-                    //interactable = false;
+                    sys_Item holdingItem = interactor.getHoldingObject();
+                    // If there is nothing in the hand, Grab the current Container
+                    if (holdingItem == null)
+                    {
+                        interactor.hold(comp_Item);
+                        interactable = false;
+                    }
+
+                    // If ther is something in the hand, put it into the Container
+                    else
+                    {
+                        interactor.hold(null);
+                        comp_Container.useUISAPI("addItem", new List<UIS_Data>() { new UIS_Data("argument", holdingItem.getUISE().getID(), UIS_Data_Type.Entity) });
+                        comp_Container.addItem(holdingItem);
+                    }
                 }
+
+                // Key Held Long **************************************************
                 else
                 {
-                    interactor.hold(null);
-                    comp_Container.useUISAPI("addItem", new List<UIS_Data>() { new UIS_Data("argument", holdingItem.getUISE().getID(), UIS_Data_Type.Entity) });
-                    comp_Container.addItem(holdingItem);
+                    comp_UISystem.activate();
                 }
             }
 

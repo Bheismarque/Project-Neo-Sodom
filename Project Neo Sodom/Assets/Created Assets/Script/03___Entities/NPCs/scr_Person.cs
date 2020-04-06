@@ -30,6 +30,7 @@ public class scr_Person : MonoBehaviour
     [HideInInspector] public bool key_weaponChange = false;
     [HideInInspector] public bool key_sprint = false;
     [HideInInspector] public bool key_reload = false;
+    [HideInInspector] public bool key_interact = false;
     [HideInInspector] public bool key_cameraSideInvert = false;
 
 
@@ -101,35 +102,29 @@ public class scr_Person : MonoBehaviour
         model_hip.localPosition = bone_hip.localPosition;
     }
 
+
+
+    // * Update %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    #region
     private void Update()
     {
-        stateControl();
+        stateUpdate();
 
-        InteractiveControl();
-        actionControl();
+        InteractiveUpdate();
+        actionUpdate();
 
-        movementControl();
-        rotationControl();
+        movementUpdate();
+        rotationUpdate();
 
-        weaponGunControl();
+        weaponGunUpdate();
 
-        animationControl();
-        postureControl();
-        finishControl();
-    }
-
-    private void LateUpdate()
-    {
-        movementSet();
-        postureSet();
+        animationUpdate();
+        postureUpdate();
+        finishUpdate();
     }
 
 
-    //Control
-    #region
-
-
-    //State
+    // * State ========================================================================================================================================================================
     #region
     private bool state_limp = false;
     private bool state_stand = true;
@@ -160,7 +155,7 @@ public class scr_Person : MonoBehaviour
     private bool state_firstPerson = false;
     
     public void hold(sys_Item item) { holdingObject = item; if (item == null) { return; } item.setHolder(this); }
-    private void stateControl()
+    private void stateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.H)) { state_firstPerson = !state_firstPerson; }
         state_holding = holdingObject != null;
@@ -218,24 +213,35 @@ public class scr_Person : MonoBehaviour
     #endregion
 
 
-    //UI
+    // * Interactive ========================================================================================================================================================================
     #region
-    private void InteractiveControl()
+    private float interactGuage = 0;
+    private void InteractiveUpdate()
     {
         sys_Interactable closestInteractive = sys_Interactable.getClosestInteractive(bone_spine.position, 0.5f);
         if (closestInteractive != null)
         {
             float distance = (closestInteractive.transform.position - transform.position).magnitude;
-            if (distance < 1f && Input.GetKeyDown(KeyCode.E))
+            // If the Interactive Object is within the Range,
+            if (distance < 1f)
             {
-                closestInteractive.interact(this);
+                // If the Interaction Key was pressed
+                if(key_interact) { interactGuage += God.deltaTime; }
+
+                // If the Interaction Key was released 
+                else if (interactGuage > 0)
+                {
+                    closestInteractive.interact(this, interactGuage);
+                    interactGuage = 0;
+                }
             }
+            else { interactGuage = 0; }
         }
     }
     #endregion
 
 
-    //Action
+    // * Action ========================================================================================================================================================================
     #region
     private bool[] action_slide = { false, false, false };
     private bool action_slide_started = false;
@@ -246,7 +252,7 @@ public class scr_Person : MonoBehaviour
     private bool action_reload_started = false;
     private bool action_reload_current = false;
     private bool action_reload_pre = false;
-    private void actionControl()
+    private void actionUpdate()
     {
         //Slide
         #region
@@ -289,7 +295,7 @@ public class scr_Person : MonoBehaviour
     #endregion
 
 
-    //Movement
+    // * Movement ========================================================================================================================================================================
     #region
     [SerializeField] private float speedWalk = 0.6f;
     [SerializeField] private float speedLimp = 0.9f;
@@ -320,7 +326,7 @@ public class scr_Person : MonoBehaviour
 
     private float speed_position_rotation_mix = 1;
 
-    private void movementControl()
+    private void movementUpdate()
     {
         // ------------------- Step 0 - Input Information ------------------- 
         float moveInput_dir = Vector2.SignedAngle(Vector2.right, moveInput);
@@ -440,9 +446,9 @@ public class scr_Person : MonoBehaviour
     #endregion
 
 
-    //Rotation
+    // * Rotation ========================================================================================================================================================================
     #region
-    private void rotationControl()
+    private void rotationUpdate()
     {
         rotation.x -= state_cover_rotation;
         rotation_pre = rotation;
@@ -508,7 +514,7 @@ public class scr_Person : MonoBehaviour
     #endregion
 
 
-    //Weapon
+    // * Weapon ========================================================================================================================================================================
     #region
     [SerializeField] private List<GameObject> guns = new List<GameObject>();
     private scr_Gun gun = null;
@@ -522,7 +528,7 @@ public class scr_Person : MonoBehaviour
     private float gun_aim_time = 0;
     private float gun_aimProper_time = 0;
     private float gun_lastShootTime = 0;
-    private void weaponGunControl()
+    private void weaponGunUpdate()
     {
         //Guns Control
         if (key_weaponChange)
@@ -597,7 +603,7 @@ public class scr_Person : MonoBehaviour
     #endregion
 
 
-    //Animation
+    // * Animation ========================================================================================================================================================================
     #region 
     private float posture_stand = 1;
     private float posture_limp = 0;
@@ -609,7 +615,7 @@ public class scr_Person : MonoBehaviour
 
     private Vector2 animationMovingSpeed = Vector2.zero;
 
-    private void animationControl()
+    private void animationUpdate()
     {
         if (comp_animator != null)
         {
@@ -676,7 +682,7 @@ public class scr_Person : MonoBehaviour
     #endregion
 
 
-    //Posture
+    // * Posture ========================================================================================================================================================================
     #region
     private float ragdollResemble = 1;
     private float ragdollCatchedUp = 0;
@@ -713,7 +719,7 @@ public class scr_Person : MonoBehaviour
     private Vector2 posture_gun_recoil = Vector2.zero;
     private Vector2 posture_gun_recoil_speed = Vector2.zero;
 
-    private void postureControl()
+    private void postureUpdate()
     {
         //Body Bending
         float bendingAngle_goal;
@@ -782,16 +788,24 @@ public class scr_Person : MonoBehaviour
         }
     }
     #endregion
-    
 
-    private void finishControl()
+    // * Finish ========================================================================================================================================================================
+    #region
+    private void finishUpdate()
     {
         transform.rotation = Quaternion.Euler(new Vector3(0,-rotation.x + 90, 0));
     }
     #endregion
-    
+    #endregion
+
 
     //Late Update
+    #region
+    private void LateUpdate()
+    {
+        movementSet();
+        postureSet();
+    }
     private void movementSet()
     {
 
@@ -916,6 +930,7 @@ public class scr_Person : MonoBehaviour
         }
         return returnValue + Quaternion.Angle(model.localRotation, bone.localRotation);
     }
+    #endregion
 
     public void damage(Transform damagePart, float damage)
     {

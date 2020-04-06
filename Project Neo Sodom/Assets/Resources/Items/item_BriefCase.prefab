@@ -28,10 +28,10 @@ MonoBehaviour:
   DebuggingMode: 0
   script: "Cunt\n{\n    main[]\n    {\n        this.count = 0;\n        this.itemList
     = (new = \"List\").create[];\n    }\n\n    clicked[]\n    {\n        temp = (duplicate
-    = \"ItemListWindow\").create[];\n        temp.x = x; temp.y = y; temp.z = z;\n       
-    temp.ab_position = 1;\n\n        temp.parent = this;\n        temp.ab_parent
-    = 1;\n\n        focus = temp;\n        ab_focus = 1;\n    }\n\n    addItem[item]\n   
-    {\n        skin = item;\n        this.itemList.add[item];\n        this.itemList.printAll[];\n   
+    = \"ItemListWindow\").create[this.itemList];\n        temp.x = x; temp.y = y;
+    temp.z = z;\n        temp.ab_position = 1;\n\n        temp.parent = this;\n       
+    temp.ab_parent = 1;\n\n        focus = temp;\n        ab_focus = 1;\n    }\n\n   
+    addItem[item]\n    {\n        skin = item;\n        this.itemList.add[item];\n   
     }\n}"
   size: 0
   capacity: 0
