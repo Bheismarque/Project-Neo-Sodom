@@ -6130,9 +6130,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebuggingMode: 0
-  script: "ItemListWindow\n{\n    create[list]\n    {\n        this.list = list;\n       
-    createElements[];\n        this;\n    }\n    createElements[]\n    {\n       
-    counter = -1;\n        n = list.head.next;\n        if (n != list.tail)\n       
+  script: "ItemListWindow\n{\n    create[list,x,y,z]\n    {\n        this.x = x;
+    this.y = y; this.z = z;\n        ab_position = true;\n        \n        this.list
+    = list;\n        createElements[];\n        this;\n    }\n    createElements[]\n   
+    {\n        counter = -1;\n        n = list.head.next;\n        if (n != list.tail)\n       
     {\n            createButton[(counter+=1)];\n            n = n.next;\n           
     loop = true;\n        }\n    }\n    createButton[index]\n    {\n        temp
     = (duplicate = \"btn_ItemListItem\").create[thisWindow];\n\n        temp.lx =
