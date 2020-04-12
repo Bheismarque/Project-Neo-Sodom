@@ -290,17 +290,13 @@ public class UIS_Object : MonoBehaviour
     public void skin()
     {
         destroy();
-
-        gameObject.SetActive(false);
-        Destroy(gameObject, 1f);
+        Destroy(gameObject);
     }
     public void delete()
     {
         destroy();
         if (UISE != null) { UISE.delete(); }
-
-        gameObject.SetActive(false);
-        Destroy(gameObject,1f);
+        Destroy(gameObject);
     }
 
     private bool duplicated = false;

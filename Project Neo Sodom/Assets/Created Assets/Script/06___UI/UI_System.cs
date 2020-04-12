@@ -42,15 +42,20 @@ public class UI_System : MonoBehaviour
             if (key_up) { side = controlSide.Up; }
             if (key_down) { side = controlSide.Down; }
 
-            if(side != controlSide.None) { moveFocusedElement(side); }
+            if (side != controlSide.None) { moveFocusedElement(side); }
 
             if (focusedElement != null)
             {
-                if(key_clicked) { focusedElement.useUISAPI("clicked", new List<UIS_Data>()); }
+                if (key_clicked) { focusedElement.useUISAPI("clicked", new List<UIS_Data>()); }
             }
         }
-    }
 
+        if (controller == null)
+        {
+            Destroy(interactable.getIcon());
+            Destroy(gameObject);
+        }
+    }
     
     public void activate()
     {

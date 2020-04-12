@@ -27,6 +27,8 @@ public class sys_Interactable : MonoBehaviour
         icon.transform.localScale = Util.smoothChange(icon.transform.localScale, iconScale, 5, 1);
     }
 
+    public GameObject getIcon() { return icon; }
+
     public static void resetInteractableList() { InteractableList = null; }
     public static sys_Interactable getClosestInteractive(Vector3 location, float distanceLimit)
     {
@@ -82,7 +84,7 @@ public class sys_Interactable : MonoBehaviour
                         interactable = false;
                     }
 
-                    // If ther is something in the hand, put it into the Container
+                    // If there is something in the hand, put it into the Container
                     else
                     {
                         interactor.hold(null);

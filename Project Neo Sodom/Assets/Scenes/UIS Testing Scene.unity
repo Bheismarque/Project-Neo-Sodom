@@ -2516,17 +2516,17 @@ MonoBehaviour:
   script: "List\n{\n    create[]\n    {\n        this.head = (new = \"ListNode\").create[null];\n       
     this.tail = (new = \"ListNode\").create[null];\n        head.next = tail;\n       
     tail.prev = head;\n        \n        this.size = 0;\n        this;\n    }\n\n   
-    add[data]\n    {\n        node = (new = \"ListNode\").create[data];\n\n       
+    empty[]\n    {\n        head.next = tail;\n        tail.prev = head;\n       
+    this.size = 0;\n    }\n    \n    add[data]\n    {\n        node = (new = \"ListNode\").create[data];\n\n       
     tail.prev.next = node;\n        node.prev = tail.prev;\n\n        tail.prev =
     node;\n        node.next = tail;\n\n        this.size += 1;\n    }\n\n    get[index]\n   
-    {\n        count = 0;\n        n = head.next;\n        if (count < index || n
-    != tail)\n        {\n            count += 1;\n            n = n.next;\n           
-    loop = true;\n        }\n        toReturn = n.data;\n        toReturn;\n    }\n   
-    \n    printAll[]\n    {\n        n = head.next;\n        if (n != tail)\n       
-    {\n            print = n.data.systemName;\n            n = n.next;\n           
-    loop = true;\n        }\n    }\n}\n\nListNode\n{\n    create[data]\n    {\n       
-    this.data = data;\n        this.next = null;\n        this.prev = null;\n       
-    this;\n    }\n}"
+    {\n        count = -1;\n        n = head.next;\n        if ((count+=1) < index
+    || n != tail) { n = n.next; loop = true; }\n        toReturn = n.data;\n       
+    toReturn;\n    }\n    \n    printAll[]\n    {\n        n = head.next;\n       
+    if (n != tail)\n        {\n            print = n.data.systemName;\n           
+    n = n.next;\n            loop = true;\n        }\n    }\n}\n\nListNode\n{\n   
+    create[data]\n    {\n        this.data = data;\n        this.next = null;\n       
+    this.prev = null;\n        this;\n    }\n}"
 --- !u!4 &705179553
 Transform:
   m_ObjectHideFlags: 0
@@ -2616,6 +2616,144 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 724182819}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &737525671
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5560912775828838958, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_Name
+      value: item_BriefCase (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.235
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.802
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.301
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 525e17b8f096e6d4698635b9280780c9, type: 3}
+--- !u!1001 &740096955
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5560912775828838958, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_Name
+      value: item_BriefCase (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.235
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.802
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.704
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 525e17b8f096e6d4698635b9280780c9, type: 3}
 --- !u!1001 &741929098
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3264,7 +3402,7 @@ Transform:
   - {fileID: 1888702427}
   - {fileID: 844630256}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1109245579
 GameObject:
@@ -3863,7 +4001,7 @@ PrefabInstance:
     - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.685
+      value: -0.435
       objectReference: {fileID: 0}
     - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
         type: 3}
@@ -3888,7 +4026,7 @@ PrefabInstance:
     - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
         type: 3}
@@ -6130,15 +6268,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebuggingMode: 0
-  script: "ItemListWindow\n{\n    create[list,x,y,z]\n    {\n        this.x = x;
-    this.y = y; this.z = z;\n        ab_position = true;\n        \n        this.list
-    = list;\n        createElements[];\n        this;\n    }\n    createElements[]\n   
-    {\n        counter = -1;\n        n = list.head.next;\n        if (n != list.tail)\n       
-    {\n            createButton[(counter+=1)];\n            n = n.next;\n           
-    loop = true;\n        }\n    }\n    createButton[index]\n    {\n        temp
-    = (duplicate = \"btn_ItemListItem\").create[thisWindow];\n\n        temp.lx =
-    0;\n        temp.ly = 0.0918 - (index*0.03290001);\n        temp.lz = -0.02219999;\n       
-    temp.ab_localPosition = true;\n    }\n\n    clicked[]\n    {\n    }\n}"
+  script: "ItemListWindow\n{\n    create[parent,list,x,y,z]\n    {\n        this.parent
+    = parent;\n        ab_parent = true;\n        \n        this.x = x; this.y =
+    y; this.z = z;\n        ab_position = true;\n        \n        this.list = list;\n       
+    this.elementList = (new = \"List\").create[];\n        createElements[];\n\n       
+    this;\n    }\n    createElements[]\n    {\n        counter = -1;\n        n =
+    elementList.head.next;\n        if (n != elementList.tail)\n        {\n           
+    delete = n.data;\n            n = n.next; loop = true;\n        }\n        elementList.empty[];\n\n       
+    counter = -1;\n        n = list.head.next;\n        if (n != list.tail)\n       
+    {\n            created = createButton[(counter+=1)];\n            elementList.add[created];\n           
+    n = n.next; loop = true;\n        }\n        this.size = list.size;\n    }\n   
+    createButton[index]\n    {\n        temp = (duplicate = \"btn_ItemListItem\").create[thisWindow];\n\n       
+    temp.lx = 0;\n        temp.ly = 0.0918 - (index*0.03290001);\n        temp.lz
+    = -0.02219999;\n        temp.ab_localPosition = true;\n        \n        temp;\n   
+    }\n\n    clicked[]\n    {\n    }\n}"
 --- !u!1001 &1930312010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6189,7 +6332,7 @@ PrefabInstance:
     - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
         type: 3}
@@ -6953,7 +7096,7 @@ PrefabInstance:
     - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
         type: 3}
