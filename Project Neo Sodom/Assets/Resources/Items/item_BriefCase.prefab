@@ -1,19 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &5560912775028491801
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4664717869308720215}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.24197692, y: 0.16731292, z: 0.051872004}
-  m_Center: {x: 0, y: -0.08087948, z: 0}
---- !u!114 &5560912775028491800
+--- !u!114 &2106367853660714970
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -26,13 +13,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebuggingMode: 0
-  script: "Cunt\n{\n    main[]\n    {\n        this.count = 0;\n        this.itemList
-    = (new = \"List\").create[];\n        this.itemListWindow = null;\n    }\n\n   
-    clicked[]\n    {\n        itemListWindow = (duplicate = \"ItemListWindow\").create[this,this.itemList,x,y,z];\n       
-    \n        focus = itemListWindow;\n        ab_focus = 1;\n    }\n\n    addItem[item]\n   
+  script: "item_BriefCase_Controller\n{\n    main[]\n    {\n        this.itemList
+    = (new = \"List\").create[];\n        this.itemListWindow = null;\n        this.itemName
+    = \"item_BriefCase\";\n    }\n\n    clicked[]\n    {\n        itemListWindow
+    = (duplicate = \"ItemListWindow\").create[this,this.itemList,x,y,z];\n       
+    focus = itemListWindow;\n        ab_focus = 1;\n    }\n\n    addItem[item]\n   
     {\n        skin = item;\n        this.itemList.add[item];\n        if (itemListWindow
     != null)\n        {\n            itemListWindow.createElements[];\n        }\n   
-    }\n}"
+    }\n\n    replaceUISE[uise]\n    {\n        replace = uise;\n    }\n}"
   size: 0
   capacity: 0
   items: []
@@ -187,6 +175,18 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775028491800, guid: a66bcd5bfbc1e084aa6e05a2b488b205,
+        type: 3}
+      propertyPath: script
+      value: "item_BriefCase_Controller\n{\n    main[]\n    {\n        this.count
+        = 0;\n        this.itemList = (new = \"List\").create[];\n        this.itemListWindow
+        = null;\n        this.itemName = \"item_BriefCase\";\n    }\n\n    clicked[]\n   
+        {\n        itemListWindow = (duplicate = \"ItemListWindow\").create[this,this.itemList,x,y,z];\n       
+        \n        focus = itemListWindow;\n        ab_focus = 1;\n    }\n\n    addItem[item]\n   
+        {\n        skin = item;\n        this.itemList.add[item];\n        if (itemListWindow
+        != null)\n        {\n            itemListWindow.createElements[];\n       
+        }\n    }\n\n    replaceUISE[uise]\n    {\n        replace = uise;\n    }\n}"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a66bcd5bfbc1e084aa6e05a2b488b205, type: 3}

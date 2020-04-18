@@ -125,8 +125,8 @@ public class UIS_Object : MonoBehaviour
         if (isSetUp && !isStarted)
         {
             isStarted = true;
-            //Only run "Main" if it isn't duplicated.
-            if (UISE != null && !duplicated)
+            //Only run "Main" if it isn't duplicated or replaced.
+            if (UISE != null && !duplicated && !replaced)
             {
                 UISE.executeAbility("main", new List<UIS_Data>());
             }
@@ -210,6 +210,7 @@ public class UIS_Object : MonoBehaviour
                 // Focus Setting ------------------------------------------------------------------------------------------------------
                 if (data_Accessibility_Focus.getData().Equals(1f))
                 {
+                    print("asdfadgadqwfadw");
                     if (system != null) { system.setFocus(UIS.getUISEfromUISD(data_focus)); }
                     data_Accessibility_Focus.setData(0f, UIS_Data_Type.Numeric);
                 }
@@ -243,9 +244,10 @@ public class UIS_Object : MonoBehaviour
     protected virtual void create() { }
     protected virtual void step() { }
 
+    private bool replaced = false;
     public UIS_Entity setUISE(UIS_Entity UISE)
     {
-        if(UISE == null) { return null; }
+        if (UISE == null) { return null; }
 
         data_Accessibility_Position = UISE.searchDataField("ab_position");
         data_position_x = UISE.searchDataField("x");
@@ -260,12 +262,14 @@ public class UIS_Object : MonoBehaviour
         data_Accessibility_Focus = UISE.searchDataField("ab_focus");
         data_focus = UISE.searchDataField("focus");
 
-        data_Accessibility_Focus = UISE.searchDataField("ab_parent");
+        data_Accessibility_Parent = UISE.searchDataField("ab_parent");
         data_parent = UISE.searchDataField("parent");
 
-        data_deltaTime = UISE.searchDataField("deltaTime");
         data_thisWindow = UISE.searchDataField("thisWindow");
+
         this.UISE = UISE;
+        this.UISE.setOwner(this);
+        replaced = true;
 
         return UISE;
     }
@@ -290,13 +294,14 @@ public class UIS_Object : MonoBehaviour
     public void skin()
     {
         destroy();
-        Destroy(gameObject);
+        if(UISE != null) { UISE.setOwner(null); }
+        Destroy(gameObject, (transform.GetComponent<UI_Element>() || transform.GetComponent<UI_Window>()) ? 1 : 0);
     }
     public void delete()
     {
         destroy();
         if (UISE != null) { UISE.delete(); }
-        Destroy(gameObject);
+        Destroy(gameObject, (transform.GetComponent<UI_Element>() || transform.GetComponent<UI_Window>()) ? 1 : 0);
     }
 
     private bool duplicated = false;

@@ -933,13 +933,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387591082}
-  m_LocalRotation: {x: 0.013917527, y: 0.731029, z: -0.014917151, w: 0.68204147}
-  m_LocalPosition: {x: -8.19, y: 0.78, z: -4.34}
+  m_LocalRotation: {x: 0.18023427, y: -0.5295698, z: 0.25410244, w: 0.7889889}
+  m_LocalPosition: {x: 1.43, y: 0.72, z: -2.595}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 132920470}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 2.338, y: 93.971, z: 0}
+  m_LocalEulerAnglesHint: {x: 33.61, y: -63.305004, z: 14.610001}
 --- !u!114 &387591084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2519,14 +2519,17 @@ MonoBehaviour:
     empty[]\n    {\n        head.next = tail;\n        tail.prev = head;\n       
     this.size = 0;\n    }\n    \n    add[data]\n    {\n        node = (new = \"ListNode\").create[data];\n\n       
     tail.prev.next = node;\n        node.prev = tail.prev;\n\n        tail.prev =
-    node;\n        node.next = tail;\n\n        this.size += 1;\n    }\n\n    get[index]\n   
-    {\n        count = -1;\n        n = head.next;\n        if ((count+=1) < index
-    || n != tail) { n = n.next; loop = true; }\n        toReturn = n.data;\n       
-    toReturn;\n    }\n    \n    printAll[]\n    {\n        n = head.next;\n       
-    if (n != tail)\n        {\n            print = n.data.systemName;\n           
-    n = n.next;\n            loop = true;\n        }\n    }\n}\n\nListNode\n{\n   
-    create[data]\n    {\n        this.data = data;\n        this.next = null;\n       
-    this.prev = null;\n        this;\n    }\n}"
+    node;\n        node.next = tail;\n\n        this.size += 1;\n    }\n\n    remove[index]\n   
+    {\n        if (size > 0)\n        {\n            count = -1;\n            n =
+    head.next;\n            if ((count+=1) < index && n != tail) { n = n.next; loop
+    = true; }\n            n.prev.next = n.next;\n            n.next.prev = n.prev;\n           
+    this.size -= 1;\n        }\n    }\n\n    get[index]\n    {\n        count = -1;\n       
+    n = head.next;\n        if ((count+=1) < index && n != tail) { n = n.next; loop
+    = true; }\n        toReturn = n.data;\n        toReturn;\n    }\n    \n    printAll[]\n   
+    {\n        n = head.next;\n        if (n != tail)\n        {\n            print
+    = n.data.systemName;\n            n = n.next;\n            loop = true;\n       
+    }\n    }\n}\n\nListNode\n{\n    create[data]\n    {\n        this.data = data;\n       
+    this.next = null;\n        this.prev = null;\n        this;\n    }\n}"
 --- !u!4 &705179553
 Transform:
   m_ObjectHideFlags: 0
@@ -3039,8 +3042,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebuggingMode: 0
-  script: "ItemListElements\n{\n    create[]\n    {\n    }\n\n    clicked[]\n   
-    {\n    }\n}"
+  script: 'ItemListElements
+
+    {
+
+    }'
 --- !u!1001 &881233937
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4001,7 +4007,7 @@ PrefabInstance:
     - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.435
+      value: -0.406
       objectReference: {fileID: 0}
     - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
         type: 3}
@@ -4570,7 +4576,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DebuggingMode: 0
   script: "btn_ItemListItem\n{\n    create[window]\n    {\n        parent = window;\n       
-    ab_parent = true;\n        this;\n    }\n    clicked[]\n    {\n    }\n}\n"
+    ab_parent = true;\n        this;\n    }\n    clicked[]\n    {\n        item =
+    (load = data.itemName);\n        item.replaceUISE[data];\n        data.name =
+    \"copied\"+ data.itemList.size;\n        parent.removeElement[index];\n    }\n}\n"
   selectable: 1
   scale: {x: 1, y: 1}
   componentsSatisfied: 1
@@ -6276,12 +6284,14 @@ MonoBehaviour:
     elementList.head.next;\n        if (n != elementList.tail)\n        {\n           
     delete = n.data;\n            n = n.next; loop = true;\n        }\n        elementList.empty[];\n\n       
     counter = -1;\n        n = list.head.next;\n        if (n != list.tail)\n       
-    {\n            created = createButton[(counter+=1)];\n            elementList.add[created];\n           
+    {\n            created = createButton[(counter+=1), n.data];\n            elementList.add[created];\n           
     n = n.next; loop = true;\n        }\n        this.size = list.size;\n    }\n   
-    createButton[index]\n    {\n        temp = (duplicate = \"btn_ItemListItem\").create[thisWindow];\n\n       
-    temp.lx = 0;\n        temp.ly = 0.0918 - (index*0.03290001);\n        temp.lz
-    = -0.02219999;\n        temp.ab_localPosition = true;\n        \n        temp;\n   
-    }\n\n    clicked[]\n    {\n    }\n}"
+    removeElement[index]\n    {\n        list.remove[index];\n        createElements[];\n   
+    }\n    createButton[index, data]\n    {\n        temp = (duplicate = \"btn_ItemListItem\").create[thisWindow];\n       
+    temp.data = data;\n        temp.index = index;\n        temp.lx = 0;\n       
+    temp.ly = 0.0918 - (index*0.03290001);\n        temp.lz = -0.02219999;\n       
+    temp.ab_localPosition = true;\n        \n        temp;\n    }\n\n    clicked[]\n   
+    {\n    }\n}"
 --- !u!1001 &1930312010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7071,7 +7081,7 @@ PrefabInstance:
     - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.048
+      value: -0.009999987
       objectReference: {fileID: 0}
     - target: {fileID: 5560912775828838954, guid: 525e17b8f096e6d4698635b9280780c9,
         type: 3}
@@ -7112,6 +7122,29 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560912775028491800, guid: 525e17b8f096e6d4698635b9280780c9,
+        type: 3}
+      propertyPath: script
+      value: "item_BriefCase_Controller\n{\n    main[]\n    {\n        this.count
+        = 0;\n        this.itemList = (new = \"List\").create[];\n        this.itemListWindow
+        = null;\n        this.itemName = \"item_BriefCase\";\n    }\n\n    clicked[]\n   
+        {\n        print = \"afasdf\";\n        itemListWindow = (duplicate = \"ItemListWindow\").create[this,this.itemList,x,y,z];\n       
+        \n        focus = itemListWindow;\n        ab_focus = 1;\n    }\n\n    addItem[item]\n   
+        {\n        skin = item;\n        this.itemList.add[item];\n        if (itemListWindow
+        != null)\n        {\n            itemListWindow.createElements[];\n       
+        }\n    }\n\n    replaceUISE[uise]\n    {\n        replace = uise;\n    }\n}"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055939375, guid: 525e17b8f096e6d4698635b9280780c9, type: 3}
+      propertyPath: script
+      value: "item_BriefCase_Controller\n{\n    main[]\n    {\n        this.count
+        = 0;\n        this.itemList = (new = \"List\").create[];\n        this.itemListWindow
+        = null;\n        this.itemName = \"item_BriefCase\";\n    }\n\n    clicked[]\n   
+        {\n        itemListWindow = (duplicate = \"ItemListWindow\").create[this,this.itemList,x,y,z];\n       
+        \n        focus = itemListWindow;\n        ab_focus = 1; \n    }\n\n    addItem[item]\n   
+        {\n        skin = item;\n        this.itemList.add[item];\n        if (itemListWindow
+        != null)\n        {\n            itemListWindow.createElements[];\n       
+        }\n    }\n\n    replaceUISE[uise]\n    {\n        replace = uise;\n    }\n}"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 525e17b8f096e6d4698635b9280780c9, type: 3}

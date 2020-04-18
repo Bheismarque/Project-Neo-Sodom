@@ -97,10 +97,10 @@ public class UIS_Entity
     {
         foreach (UIS_Data data in getData()) { owner.printOnConsole(data.toString()); }
     }
-    #endregion
 
-    // ------------------- Helper Static Methods -------------------
     public UIS_Object getOwner() { return owner; }
+    public void setOwner(UIS_Object owner) { this.owner = owner; }
+    #endregion
 
     public int getID() { return id; }
 }

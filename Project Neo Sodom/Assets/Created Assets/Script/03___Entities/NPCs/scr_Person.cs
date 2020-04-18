@@ -165,6 +165,8 @@ public class scr_Person : MonoBehaviour
         state_move = !moveInput.Equals(Vector2.zero);
         state_walk = state_move && !state_sprint;
 
+        if (Input.GetKeyDown(KeyCode.L)) { state_limp = !state_limp; }
+
         //Sprint
         if (state_sprint_chance)
         {

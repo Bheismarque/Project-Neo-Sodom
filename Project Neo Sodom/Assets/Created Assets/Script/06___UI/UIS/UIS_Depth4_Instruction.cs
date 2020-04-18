@@ -71,8 +71,8 @@ public class UIS_Instruction_Equals : UIS_Instruction
             // Create --------------------------------------------------------------------------------------------------------
             if (newVariableName.Equals("load"))
             {
-                UI_System createdObject = GameObject.Instantiate((GameObject)Resources.Load("UI/UI_Selectable/Items/"+operandStr2, typeof(GameObject))).GetComponent<UI_System>();
-                UIS_Entity newEntity = createdObject == null ? null : createdObject.getController().getUISE();
+                UI_System createdObject = GameObject.Instantiate((GameObject)Resources.Load("Items/"+operandStr2, typeof(GameObject))).GetComponent<UI_System>();
+                UIS_Entity newEntity = createdObject == null ? null : createdObject.initiate().getController().setUp().getUISE();
                 if (newEntity == null) { Debug.Log("Entity Type Not Found"); return; } 
                 destination.setData(newEntity.getID(), UIS_Data_Type.Entity);
                 //debugPrint("New : " + "\"" + destination.getDataName());

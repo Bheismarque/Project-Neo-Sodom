@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5802291079705087198}
   - component: {fileID: 5568072594831420185}
+  - component: {fileID: 5560912775028491801}
   m_Layer: 0
   m_Name: BriefCase
   m_TagString: Untagged
@@ -50,6 +51,19 @@ MonoBehaviour:
   emission_color: {r: 1, g: 1, b: 1, a: 1}
   emission_intensity: 1
   isUnique: 0
+--- !u!65 &5560912775028491801
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977347756456302432}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24197692, y: 0.16731292, z: 0.051872004}
+  m_Center: {x: 0, y: -0.08087948, z: 0}
 --- !u!1 &6160428030361522538
 GameObject:
   m_ObjectHideFlags: 0

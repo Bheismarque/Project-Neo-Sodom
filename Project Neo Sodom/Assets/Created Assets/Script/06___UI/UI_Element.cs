@@ -129,7 +129,7 @@ public class UI_Element : UIS_Object
     public Vector2 getScale() { return scale; }
     public void setScale(Vector2 scale) { this.scale = scale; }
 
-    public bool isSelectable() { return selectable; }
+    public bool isSelectable() { return selectable && !deleted; }
 
     public void select() { selected = true; }
     public void unselect() { selected = false; }

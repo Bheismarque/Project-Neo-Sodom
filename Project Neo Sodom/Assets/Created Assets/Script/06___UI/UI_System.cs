@@ -17,11 +17,21 @@ public class UI_System : MonoBehaviour
 
     private void Start()
     {
+        if (!initiated) { initiate(); }
+    }
+
+    private bool initiated = false;
+    public UI_System initiate()
+    {
         Transform controllerTransform = transform.Find("Controller");
         controller = controllerTransform == null ? null : controllerTransform.GetComponent<UIS_Object>();
 
         gameObject.AddComponent<sys_Interactable>();
         interactable = GetComponent<sys_Interactable>();
+
+        initiated = true;
+
+        return this;
     }
 
     private void Update()
@@ -81,12 +91,15 @@ public class UI_System : MonoBehaviour
 
     public void updateAvailableSelectiveList()
     {
-        List<UI_Element> availableSelectiveList = new List<UI_Element>();
-        foreach (UI_Element element in focusedWindow.GetComponentsInChildren<UI_Element>())
+        if(focusedWindow != null)
         {
-            if (element.isSelectable()) { availableSelectiveList.Add(element); }
+            List<UI_Element> availableSelectiveList = new List<UI_Element>();
+            foreach (UI_Element element in focusedWindow.GetComponentsInChildren<UI_Element>())
+            {
+                if (element.isSelectable()) { availableSelectiveList.Add(element); }
+            }
+            availableSelective = availableSelectiveList.ToArray();
         }
-        availableSelective = availableSelectiveList.ToArray();
     }
 
     private static readonly float recognizableAngle = 85f;
