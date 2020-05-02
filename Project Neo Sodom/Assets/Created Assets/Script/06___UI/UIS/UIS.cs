@@ -91,10 +91,19 @@ public enum UIS_CompileProcess { None, Initialization, OnRun, CustomAbility }
 public static class UIS
 {
     public static UIS_Data globalEntity = null;
-    private static List<UIS_Entity> UISEntityType = new List<UIS_Entity>();
+    public static List<UIS_Entity> UISEntityType = new List<UIS_Entity>();
     public static List<UIS_Entity> UISO_LIST = new List<UIS_Entity>(8192);
     public static int UISO_LIST_COUNT = 0;
     public static UISO_IndexStack UISO_LIST_INDEX_STACK = new UISO_IndexStack();
+
+    public static void systemSetUp()
+    {
+        globalEntity = null;
+        UISEntityType = new List<UIS_Entity>();
+        UISO_LIST = new List<UIS_Entity>(8192);
+        UISO_LIST_COUNT = 0;
+        UISO_LIST_INDEX_STACK = new UISO_IndexStack();
+    }
 
     public static UIS_Entity getUISEfromUISD(UIS_Data data)
     {

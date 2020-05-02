@@ -6,13 +6,12 @@ public class sys_Item : UIS_Object
     [SerializeField] private int size = 0;
     private scr_Person holder = null;
     private UI_System UISystem = null;
+    private sys_Interactable interactable = null;
 
-    private Transform target = null;
-
-    protected override void create()
+    protected override void setUpDetail()
     {
-        UISystem = GetComponentInParent<UI_System>();
-        target = transform.Find("Target");
+        UISystem = GetComponentInParent<UI_System>().setUp();
+        interactable = UISystem == null ? null : UISystem.getInteractable();
     }
     protected override void step()
     {
@@ -28,8 +27,10 @@ public class sys_Item : UIS_Object
             UISystem.transform.parent = parentSave;
         }
     }
-    public void setHolder(scr_Person holder) { this.holder = holder; UISystem.getInteractable().setShinable(holder==null); }
+    public void setHolder(scr_Person holder) { this.holder = holder; }
     public void addSize(int size) { this.size += size; }
     public void setSize(int size) { this.size = size; }
     public virtual int getSize() { return size; }
+
+    public sys_Interactable getInteractableSystem() { return interactable; }
 }

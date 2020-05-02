@@ -4,15 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class God_update : MonoBehaviour
 {
-    private void Start()
+    private void Awake()
     {
+        // God Setup
+        God.god_update = gameObject;
+
+        // System Setup
+        sys_Interactable.systemSetUp();
+        UIS.systemSetUp();
+
+        // Input System Setup
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        God.god_update = gameObject;
+        // Game Componenet Setup
         God.CAMERA = transform.GetChild(0).GetComponent<sys_Camera_ShoulderView>();
-
-        sys_Interactable.resetInteractableList();
     }
     
     private void Update()

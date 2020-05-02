@@ -4577,8 +4577,8 @@ MonoBehaviour:
   DebuggingMode: 0
   script: "btn_ItemListItem\n{\n    create[window]\n    {\n        parent = window;\n       
     ab_parent = true;\n        this;\n    }\n    clicked[]\n    {\n        item =
-    (load = data.itemName);\n        item.replaceUISE[data];\n        data.name =
-    \"copied\"+ data.itemList.size;\n        parent.removeElement[index];\n    }\n}\n"
+    (load = data.itemName);\n        item.replaceUISE[data];\n        item = data;\n       
+    makeUserUse = item;\n        parent.removeElement[index];\n    }\n}\n"
   selectable: 1
   scale: {x: 1, y: 1}
   componentsSatisfied: 1
@@ -5879,7 +5879,7 @@ PrefabInstance:
     - target: {fileID: 3583657032157877836, guid: 64fdddbf0c782d348b091bd731fbb829,
         type: 3}
       propertyPath: guns.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3583657032157877836, guid: 64fdddbf0c782d348b091bd731fbb829,
         type: 3}
@@ -5921,6 +5921,12 @@ PrefabInstance:
       propertyPath: blood
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 3583657032157877836, guid: 64fdddbf0c782d348b091bd731fbb829,
+        type: 3}
+      propertyPath: guns.Array.data[6]
+      value: 
+      objectReference: {fileID: 9076316280404183679, guid: d0c858e1e000786428d0c5df36c44977,
+        type: 3}
     - target: {fileID: 3005521907244381195, guid: 64fdddbf0c782d348b091bd731fbb829,
         type: 3}
       propertyPath: m_ConnectedAnchor.x

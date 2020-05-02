@@ -17,19 +17,21 @@ public class UI_System : MonoBehaviour
 
     private void Start()
     {
-        if (!initiated) { initiate(); }
+        setUp();
     }
 
-    private bool initiated = false;
-    public UI_System initiate()
+    private bool isSetUp = false;
+    public UI_System setUp()
     {
+        if (isSetUp) { return this; }
+        isSetUp = true;
+
         Transform controllerTransform = transform.Find("Controller");
         controller = controllerTransform == null ? null : controllerTransform.GetComponent<UIS_Object>();
 
         gameObject.AddComponent<sys_Interactable>();
         interactable = GetComponent<sys_Interactable>();
-
-        initiated = true;
+        interactable.setUp();
 
         return this;
     }
@@ -39,24 +41,27 @@ public class UI_System : MonoBehaviour
         interactable.setIconPosition(transform.Find("Target").position);
         if (activated)
         {
-            bool key_right = Input.GetKeyDown(KeyCode.LeftArrow);
-            bool key_left = Input.GetKeyDown(KeyCode.RightArrow);
-            bool key_up = Input.GetKeyDown(KeyCode.UpArrow);
-            bool key_down = Input.GetKeyDown(KeyCode.DownArrow);
-
-            bool key_clicked = Input.GetKeyDown(KeyCode.Space);
-
-            controlSide side = controlSide.None;
-            if (key_right) { side = controlSide.Right; }
-            if (key_left) { side = controlSide.Left; }
-            if (key_up) { side = controlSide.Up; }
-            if (key_down) { side = controlSide.Down; }
-
-            if (side != controlSide.None) { moveFocusedElement(side); }
-
-            if (focusedElement != null)
+            if((interactable.getUser().transform.position-interactable.transform.position).magnitude < 1f)
             {
-                if (key_clicked) { focusedElement.useUISAPI("clicked", new List<UIS_Data>()); }
+                bool key_right = Input.GetKeyDown(KeyCode.LeftArrow);
+                bool key_left = Input.GetKeyDown(KeyCode.RightArrow);
+                bool key_up = Input.GetKeyDown(KeyCode.UpArrow);
+                bool key_down = Input.GetKeyDown(KeyCode.DownArrow);
+
+                bool key_clicked = Input.GetKeyDown(KeyCode.Space);
+
+                controlSide side = controlSide.None;
+                if (key_right) { side = controlSide.Right; }
+                if (key_left) { side = controlSide.Left; }
+                if (key_up) { side = controlSide.Up; }
+                if (key_down) { side = controlSide.Down; }
+
+                if (side != controlSide.None) { moveFocusedElement(side); }
+
+                if (focusedElement != null)
+                {
+                    if (key_clicked) { focusedElement.useUISAPI("clicked", new List<UIS_Data>()); }
+                }
             }
         }
 
@@ -67,11 +72,7 @@ public class UI_System : MonoBehaviour
         }
     }
     
-    public void activate()
-    {
-        activated = true;
-        if(controller != null) { controller.useUISAPI("clicked", new List<UIS_Data>()); }
-    }
+    public void activate() { activated = true; }
     public void deactivate() { activated = false; }
 
     public sys_Interactable getInteractable() { return interactable; }

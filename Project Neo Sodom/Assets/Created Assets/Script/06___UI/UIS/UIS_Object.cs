@@ -36,83 +36,81 @@ public class UIS_Object : MonoBehaviour
     private void Start() { setUp(); }
     public UIS_Object setUp()
     {
-        if (!isSetUp)
+        if (isSetUp) { return this; }
+        isSetUp = true;
+
+        //Parenting
+        setParent((transform.parent == null) ? null : transform.parent.GetComponent<UIS_Object>());
+
+        //Script Initialization
+        if (groundUISO == this) { initializeAndComplieScript(); }
+
+        // Data Initialization
+        data_Accessibility_Position = new UIS_Data("ab_position", 0f, UIS_Data_Type.Numeric);
+        data_position_x = new UIS_Data("x", 0f, UIS_Data_Type.Numeric);
+        data_position_y = new UIS_Data("y", 0f, UIS_Data_Type.Numeric);
+        data_position_z = new UIS_Data("z", 0f, UIS_Data_Type.Numeric);
+
+        data_Accessibility_LocalPosition = new UIS_Data("ab_localPosition", 0f, UIS_Data_Type.Numeric);
+        data_position_lx = new UIS_Data("lx", 0f, UIS_Data_Type.Numeric);
+        data_position_ly = new UIS_Data("ly", 0f, UIS_Data_Type.Numeric);
+        data_position_lz = new UIS_Data("lz", 0f, UIS_Data_Type.Numeric);
+
+        data_Accessibility_Focus = new UIS_Data("ab_focus", -1, UIS_Data_Type.Entity);
+        data_focus = new UIS_Data("focus", -1, UIS_Data_Type.Entity);
+
+        data_Accessibility_Parent = new UIS_Data("ab_parent", -1, UIS_Data_Type.Entity);
+        data_parent = new UIS_Data("parent", -1, UIS_Data_Type.Entity);
+
+        data_deltaTime = new UIS_Data("deltaTime", 0f, UIS_Data_Type.Numeric);
+
+        UI_Window parentWindow;
+        parentWindow = transform.GetComponent<UI_Window>();
+        parentWindow = parentWindow != null ? parentWindow : transform.GetComponentInParent<UI_Window>();
+        data_thisWindow = new UIS_Data("thisWindow", parentWindow == null ? -1 : parentWindow.getUISE()== null? -1 : parentWindow.getUISE().getID(), UIS_Data_Type.Entity);
+
+        if (UISE != null)
         {
-            isSetUp = true;
+            UISE.debugMode = DebuggingMode;
 
-            //Parenting
-            setParent((transform.parent == null) ? null : transform.parent.GetComponent<UIS_Object>());
+            //Configuration Data Addition
+            UISE.getData().Add(new UIS_Data("name", gameObject.name, UIS_Data_Type.String));
+            UISE.getData().Add(new UIS_Data("systemName", GetComponentInParent<UI_System>() == null? "null" : GetComponentInParent<UI_System>().name, UIS_Data_Type.String));
+            UISE.getData().Add(UIS.globalEntity);
+            UISE.getData().Add(data_deltaTime);
 
-            //Script Initialization
-            if (groundUISO == this) { initializeAndComplieScript(); }
+            //Position AB & Data Addition
+            UISE.getData().Add(data_Accessibility_Position);
+            data_position_x.setData(transform.position.x, UIS_Data_Type.Numeric);
+            data_position_y.setData(transform.position.y, UIS_Data_Type.Numeric);
+            data_position_z.setData(transform.position.z, UIS_Data_Type.Numeric);
 
-            // Data Initialization
-            data_Accessibility_Position = new UIS_Data("ab_position", 0f, UIS_Data_Type.Numeric);
-            data_position_x = new UIS_Data("x", 0f, UIS_Data_Type.Numeric);
-            data_position_y = new UIS_Data("y", 0f, UIS_Data_Type.Numeric);
-            data_position_z = new UIS_Data("z", 0f, UIS_Data_Type.Numeric);
+            UISE.getData().Add(data_position_x);
+            UISE.getData().Add(data_position_y);
+            UISE.getData().Add(data_position_z);
 
-            data_Accessibility_LocalPosition = new UIS_Data("ab_localPosition", 0f, UIS_Data_Type.Numeric);
-            data_position_lx = new UIS_Data("lx", 0f, UIS_Data_Type.Numeric);
-            data_position_ly = new UIS_Data("ly", 0f, UIS_Data_Type.Numeric);
-            data_position_lz = new UIS_Data("lz", 0f, UIS_Data_Type.Numeric);
+            UISE.getData().Add(data_Accessibility_LocalPosition);
+            data_position_x.setData(transform.localPosition.x, UIS_Data_Type.Numeric);
+            data_position_y.setData(transform.localPosition.y, UIS_Data_Type.Numeric);
+            data_position_z.setData(transform.localPosition.z, UIS_Data_Type.Numeric);
 
-            data_Accessibility_Focus = new UIS_Data("ab_focus", -1, UIS_Data_Type.Entity);
-            data_focus = new UIS_Data("focus", -1, UIS_Data_Type.Entity);
+            UISE.getData().Add(data_position_lx);
+            UISE.getData().Add(data_position_ly);
+            UISE.getData().Add(data_position_lz);
 
-            data_Accessibility_Parent = new UIS_Data("ab_parent", -1, UIS_Data_Type.Entity);
-            data_parent = new UIS_Data("parent", -1, UIS_Data_Type.Entity);
+            //Focus AB & Data Addition
+            UISE.getData().Add(data_Accessibility_Focus);
+            UISE.getData().Add(data_focus);
 
-            data_deltaTime = new UIS_Data("deltaTime", 0f, UIS_Data_Type.Numeric);
+            //Parenting Data Addition
+            UISE.getData().Add(data_Accessibility_Parent);
+            data_parent.setData(parentUISO == null ? -1 : parentUISO.UISE.getID(), UIS_Data_Type.Entity);
+            UISE.getData().Add(data_parent);
 
-            UI_Window parentWindow;
-            parentWindow = transform.GetComponent<UI_Window>();
-            parentWindow = parentWindow != null ? parentWindow : transform.GetComponentInParent<UI_Window>();
-            data_thisWindow = new UIS_Data("thisWindow", parentWindow == null ? -1 : parentWindow.getUISE()== null? -1 : parentWindow.getUISE().getID(), UIS_Data_Type.Entity);
+            //Window Data Addition
+            UISE.getData().Add(data_thisWindow);
 
-            if (UISE != null)
-            {
-                UISE.debugMode = DebuggingMode;
-
-                //Configuration Data Addition
-                UISE.getData().Add(new UIS_Data("name", gameObject.name, UIS_Data_Type.String));
-                UISE.getData().Add(new UIS_Data("systemName", GetComponentInParent<UI_System>() == null? "null" : GetComponentInParent<UI_System>().name, UIS_Data_Type.String));
-                UISE.getData().Add(UIS.globalEntity);
-                UISE.getData().Add(data_deltaTime);
-
-                //Position AB & Data Addition
-                UISE.getData().Add(data_Accessibility_Position);
-                data_position_x.setData(transform.position.x, UIS_Data_Type.Numeric);
-                data_position_y.setData(transform.position.y, UIS_Data_Type.Numeric);
-                data_position_z.setData(transform.position.z, UIS_Data_Type.Numeric);
-
-                UISE.getData().Add(data_position_x);
-                UISE.getData().Add(data_position_y);
-                UISE.getData().Add(data_position_z);
-
-                UISE.getData().Add(data_Accessibility_LocalPosition);
-                data_position_x.setData(transform.localPosition.x, UIS_Data_Type.Numeric);
-                data_position_y.setData(transform.localPosition.y, UIS_Data_Type.Numeric);
-                data_position_z.setData(transform.localPosition.z, UIS_Data_Type.Numeric);
-
-                UISE.getData().Add(data_position_lx);
-                UISE.getData().Add(data_position_ly);
-                UISE.getData().Add(data_position_lz);
-
-                //Focus AB & Data Addition
-                UISE.getData().Add(data_Accessibility_Focus);
-                UISE.getData().Add(data_focus);
-
-                //Parenting Data Addition
-                UISE.getData().Add(data_Accessibility_Parent);
-                data_parent.setData(parentUISO == null ? -1 : parentUISO.UISE.getID(), UIS_Data_Type.Entity);
-                UISE.getData().Add(data_parent);
-
-                //Window Data Addition
-                UISE.getData().Add(data_thisWindow);
-
-                setUpDetail();
-            }
+            setUpDetail();
         }
         return this;
     }
@@ -210,7 +208,6 @@ public class UIS_Object : MonoBehaviour
                 // Focus Setting ------------------------------------------------------------------------------------------------------
                 if (data_Accessibility_Focus.getData().Equals(1f))
                 {
-                    print("asdfadgadqwfadw");
                     if (system != null) { system.setFocus(UIS.getUISEfromUISD(data_focus)); }
                     data_Accessibility_Focus.setData(0f, UIS_Data_Type.Numeric);
                 }

@@ -134,7 +134,6 @@ public class scr_Person : MonoBehaviour
 
     private bool state_holding = false;
     private bool state_handing = false;
-    private sys_Item holdingObject = null;
 
     private bool state_cover = false;
     private bool state_cover_aimClear = false;
@@ -153,8 +152,7 @@ public class scr_Person : MonoBehaviour
     private bool state_shoot_moment = false;
 
     private bool state_firstPerson = false;
-    
-    public void hold(sys_Item item) { holdingObject = item; if (item == null) { return; } item.setHolder(this); }
+
     private void stateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.H)) { state_firstPerson = !state_firstPerson; }
@@ -217,27 +215,58 @@ public class scr_Person : MonoBehaviour
 
     // * Interactive ========================================================================================================================================================================
     #region
-    private float interactGuage = 0;
+    private sys_Item holdingObject = null;
+    public void hold(sys_Item item)
+    {
+        if (holdingObject != null) { holdingObject.setHolder(null); }
+        holdingObject = item;
+        if (holdingObject != null) { holdingObject.setHolder(this); }
+    }
+
+    private float interactGauge = 0;
+    private bool interactLock = false;
     private void InteractiveUpdate()
     {
-        sys_Interactable closestInteractive = sys_Interactable.getClosestInteractive(bone_spine.position, 0.5f);
+        // Grabbing Item ========================================================================================================
+        sys_Interactable closestInteractive = sys_Interactable.getClosestInterableSystem(bone_spine.position, 0.5f);
         if (closestInteractive != null)
         {
-            float distance = (closestInteractive.transform.position - transform.position).magnitude;
-            // If the Interactive Object is within the Range,
-            if (distance < 1f)
-            {
-                // If the Interaction Key was pressed
-                if(key_interact) { interactGuage += God.deltaTime; }
+            // If the Interaction Key was Pressed, Increase the Interact Gauge
+            if (key_interact) { interactGauge += God.deltaTime; }
 
-                // If the Interaction Key was released 
-                else if (interactGuage > 0)
+            if (!interactLock)
+            {
+                // Case 1 : Holding Key more than the Limitation
+                if (key_interact && interactGauge > closestInteractive.getInteractionHoldTime())
                 {
-                    closestInteractive.interact(this, interactGuage);
-                    interactGuage = 0;
+                    closestInteractive.interact(this, interactGauge);
+                    interactLock = true;
                 }
+
+                // Case 2 : Released the Key
+                if (!key_interact && interactGauge > 0)
+                {
+                    closestInteractive.interact(this, interactGauge);
+                }
+
             }
-            else { interactGuage = 0; }
+
+            // If the Interaction Key was Released, Reset the Interact Guage, and Release the Lock
+            if (!key_interact) { interactLock = false; interactGauge = 0; }
+
+        }
+        else { interactGauge = 0; }
+
+
+        // Releasing Item ========================================================================================================
+        if (holdingObject != null && closestInteractive == null)
+        {
+            if (key_interact && !interactLock)
+            {
+                holdingObject.getInteractableSystem().interact(this, -1f);
+                interactLock = true;
+            }
+            else { interactLock = false; }
         }
     }
     #endregion

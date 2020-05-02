@@ -72,7 +72,7 @@ public class UIS_Instruction_Equals : UIS_Instruction
             if (newVariableName.Equals("load"))
             {
                 UI_System createdObject = GameObject.Instantiate((GameObject)Resources.Load("Items/"+operandStr2, typeof(GameObject))).GetComponent<UI_System>();
-                UIS_Entity newEntity = createdObject == null ? null : createdObject.initiate().getController().setUp().getUISE();
+                UIS_Entity newEntity = createdObject == null ? null : createdObject.setUp().getController().setUp().getUISE();
                 if (newEntity == null) { Debug.Log("Entity Type Not Found"); return; } 
                 destination.setData(newEntity.getID(), UIS_Data_Type.Entity);
                 //debugPrint("New : " + "\"" + destination.getDataName());
@@ -97,12 +97,22 @@ public class UIS_Instruction_Equals : UIS_Instruction
 
                 return;
             }
-            // Skin --------------------------------------------------------------------------------------------------------
+            // Replace --------------------------------------------------------------------------------------------------------
             if (newVariableName.Equals("replace"))
             {
                 if (operand2.getDataType() != UIS_Data_Type.Entity) { }
                 commander.getMotherScript().getOwner().setUISE(UIS.UISO_LIST[(int)operand2.getData()]);
                 //debugPrint("New : " + "\"" + destination.getDataName());
+
+                return;
+            }
+            // Hold --------------------------------------------------------------------------------------------------------
+            if (newVariableName.Equals("makeUserUse"))
+            {
+                scr_Person user = commander.getMotherScript().getOwner().getSystem().getInteractable().getUser();
+                (UIS.UISO_LIST[(int)operand2.getData()]).getOwner().getSystem().getInteractable().interact(user, 0f);
+
+                destination.setData((int)operand2.getData(), UIS_Data_Type.Entity);
 
                 return;
             }

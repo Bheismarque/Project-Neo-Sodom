@@ -14,7 +14,7 @@ public class scr_Gun : MonoBehaviour
     [SerializeField] private PostureType posture_aim = PostureType.OneHanded;
     [SerializeField] private PostureType posture_aimProper = PostureType.OneHanded;
 
-    [SerializeField] private FireType fireType = FireType.FullAuto;
+    [SerializeField] private FireType fireType = FireType.FullAuto; 
     private bool fireType_isModified = false;
     private FireType fireType_modified = FireType.FullAuto;
 
