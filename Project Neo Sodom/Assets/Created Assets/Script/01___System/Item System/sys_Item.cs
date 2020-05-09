@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class sys_Item : UIS_Object
 {
     [SerializeField] private int size = 0;
-    private scr_Person holder = null;
+    private Character holder = null;
     private UI_System UISystem = null;
     private sys_Interactable interactable = null;
 
@@ -27,7 +27,7 @@ public class sys_Item : UIS_Object
             UISystem.transform.parent = parentSave;
         }
     }
-    public void setHolder(scr_Person holder) { this.holder = holder; }
+    public void setHolder(Character holder) { this.holder = holder; }
     public void addSize(int size) { this.size += size; }
     public void setSize(int size) { this.size = size; }
     public virtual int getSize() { return size; }

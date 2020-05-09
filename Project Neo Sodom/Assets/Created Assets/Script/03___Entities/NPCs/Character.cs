@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class scr_Person : MonoBehaviour
+public class Character : MonoBehaviour
 {
     public float blood = 100;
 
@@ -10,7 +10,7 @@ public class scr_Person : MonoBehaviour
     private float comp_animator_disabledTime = 0;
 
     private CharacterController comp_characterController = null;
-    private scr_PersonController comp_personController = null;
+    private CharacterHandler comp_characterHandler = null;
 
     //Transform Information
     private Vector3 position = Vector3.zero;
@@ -71,7 +71,7 @@ public class scr_Person : MonoBehaviour
         comp_animator = bone.gameObject.GetComponent<Animator>();
 
         comp_characterController = GetComponent<CharacterController>();
-        comp_personController = GetComponent<scr_PersonController>();
+        comp_characterHandler = GetComponent<CharacterHandler>();
 
         //Weapon Set
         for (int i = 0; i < guns.Count; i++)
@@ -205,7 +205,7 @@ public class scr_Person : MonoBehaviour
 
         //Gun Related
         state_armed = (gun != null);
-        state_aim = state_handing || (state_armed && key_aim && (comp_animator_disabledTime < 0) && (!state_cover || state_cover_aimClear)); 
+        state_aim = state_handing || (key_aim && (comp_animator_disabledTime < 0) && (!state_cover || state_cover_aimClear)); 
         state_aimProper = state_aim && key_aimProper;
         state_shoot_triggered = state_armed && state_aim && key_shoot;
         state_shoot_moment = gun != null && gun_lastShootTime == 0;
@@ -288,7 +288,7 @@ public class scr_Person : MonoBehaviour
         //Slide
         #region
         action_slide_pre = action_slide_current;
-        if (key_postureToggle && !action_reload[1] && !state_stand_toggle && speed > speedSprint * 0.75f && God.PLAYER == comp_personController) { action_slide_current = true; }
+        if (key_postureToggle && !action_reload[1] && !state_stand_toggle && speed > speedSprint * 0.75f && God.PLAYER == comp_characterHandler) { action_slide_current = true; }
         if (action_slide_current)
         {
             if (!action_slide_started) { action_slide_started = isThisAnimationPlaying(0, "Slide"); }
@@ -455,7 +455,7 @@ public class scr_Person : MonoBehaviour
         }
         else
         {
-            Vector3 velocity = comp_personController.getNavAgent().velocity;
+            Vector3 velocity = comp_characterHandler.getNavAgent().velocity;
             speed_axis_position = new Vector2(velocity.x, velocity.z);
         }
 
@@ -562,7 +562,7 @@ public class scr_Person : MonoBehaviour
     private void weaponGunUpdate()
     {
         //Guns Control
-        if (key_weaponChange)
+        if (key_weaponChange && guns.Count > 0)
         {
             if ( gun != null )
             {
@@ -804,7 +804,7 @@ public class scr_Person : MonoBehaviour
             }
         }
         posture_gun_recoil += posture_gun_recoil_speed * God.gameTime * Util.NORMAL_FRAMERATE;
-        if (God.PLAYER == comp_personController) { God.CAMERA.setRecoil(posture_gun_recoil_speed / 5); }
+        if (God.PLAYER == comp_characterHandler) { God.CAMERA.setRecoil(posture_gun_recoil_speed / 5); }
 
         //Model - Bone Synchronize
         ragdollResemble = 1;
@@ -1068,6 +1068,7 @@ public class scr_Person : MonoBehaviour
     public bool isStandingToggle() { return state_stand_toggle; }
     public bool isStandie() { return state_stand; }
 
+    public bool getState_Armed() { return state_armed; }
 
     public bool getAction_slide() { return action_slide[1]; }
     public bool getAction_reload() { return action_reload[1]; }

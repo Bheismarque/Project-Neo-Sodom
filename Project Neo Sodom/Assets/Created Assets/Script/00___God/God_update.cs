@@ -29,7 +29,7 @@ public class God_update : MonoBehaviour
 
         if (Input.GetButtonDown("Start") || Input.GetKeyDown(KeyCode.T))
         {
-            God.NPCs = new List<scr_PersonController>();
+            God.NPCs = new List<CharacterHandler>();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }

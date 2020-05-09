@@ -3,10 +3,10 @@ using UnityEngine.AI;
 
 using System.Collections.Generic;
 
-public class scr_PersonController : MonoBehaviour
+public class CharacterHandler : MonoBehaviour
 {
     [SerializeField] bool isPlayer = false;
-    private scr_Person person = null;
+    private Character person = null;
 
     private float time_alive = 0;
 
@@ -27,14 +27,14 @@ public class scr_PersonController : MonoBehaviour
         }
     }
 
-    public scr_Person getPerson() { return person; }
+    public Character getPerson() { return person; }
     #endregion
 
     //Common Logic
     #region
     private void Start()
     {
-        person = GetComponent<scr_Person>();
+        person = GetComponent<Character>();
         setAsPlayer(isPlayer);
 
         if (isPlayer) { Player_Start(); }
@@ -151,7 +151,7 @@ public class scr_PersonController : MonoBehaviour
 
 
     //Target
-    private scr_PersonController target = null;
+    private CharacterHandler target = null;
     private Vector3 target_location = Vector3.zero;
     private Vector3 target_vector = Vector3.zero;
     private Vector2 target_direction = Vector2.zero;
@@ -250,7 +250,7 @@ public class scr_PersonController : MonoBehaviour
             targetSearchTimer += God.gameTime;
             if (targetSearchTimer > targetSearchTimerValue)
             {
-                scr_PersonController tempTarget = targetSearch(God.NPCs, person.lookInput, visibility_sightRange);
+                CharacterHandler tempTarget = targetSearch(God.NPCs, person.lookInput, visibility_sightRange);
                 if (tempTarget != null) { target = tempTarget; }
 
                 targetSearchTimer = 0;
@@ -433,34 +433,34 @@ public class scr_PersonController : MonoBehaviour
     #region
     private class NPCInfo
     {
-        public scr_PersonController npc = null;
+        public CharacterHandler npc = null;
         public float distance;
 
-        public NPCInfo(scr_PersonController npc, float distance)
+        public NPCInfo(CharacterHandler npc, float distance)
         {
             this.npc = npc;
             this.distance = distance;
         }
     }
 
-    private List<scr_PersonController> targetListCompose()
+    private List<CharacterHandler> targetListCompose()
     {
-        List<scr_PersonController> targetList = new List<scr_PersonController>();
+        List<CharacterHandler> targetList = new List<CharacterHandler>();
 
-        foreach (scr_PersonController targetCandidate in God.NPCs)
+        foreach (CharacterHandler targetCandidate in God.NPCs)
         {
         }
 
         return targetList;
     }
-    private scr_PersonController targetSearch(List<scr_PersonController> enemyList, Vector2 searchAngle, Vector2 searchAngleRange)
+    private CharacterHandler targetSearch(List<CharacterHandler> enemyList, Vector2 searchAngle, Vector2 searchAngleRange)
     {
         //---------------- Step 0 : Information Set ----------------
         Vector3 curLocation = person.getBone("head").position;
         List<NPCInfo> targetCandidates = new List<NPCInfo>();
 
         //---------------- Step 1 : Pick the Candidates ----------------
-        foreach (scr_PersonController pc in enemyList)
+        foreach (CharacterHandler pc in enemyList)
         {
             Vector3 checkLocation = pc.person.getBone("head").position;
             Vector3 checkVector = checkLocation - curLocation;
@@ -483,7 +483,7 @@ public class scr_PersonController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(curLocation, checkVector, out hit, visibility_distance, Util.VisibleLayerMask))
             {
-                if (Util.findTopComponent<scr_PersonController>(hit.transform) != pc) { continue; }
+                if (Util.findTopComponent<CharacterHandler>(hit.transform) != pc) { continue; }
             }
 
             //Register
@@ -491,7 +491,7 @@ public class scr_PersonController : MonoBehaviour
         }
 
         //---------------- Step 2 : Pick the Target ----------------
-        scr_PersonController closestNPC = null;
+        CharacterHandler closestNPC = null;
         float closestDistance = visibility_distance;
         foreach (NPCInfo npc in targetCandidates)
         {

@@ -16,10 +16,11 @@ MonoBehaviour:
   script: "item_BriefCase_Controller\n{\n    main[]\n    {\n        this.itemList
     = (new = \"List\").create[];\n        this.itemListWindow = null;\n        this.itemName
     = \"item_BriefCase\";\n    }\n\n    grabbed[]\n    {\n        deleteWindows[];\n   
-    }\n\n    clicked[]\n    {\n        itemListWindow = (duplicate = \"ItemListWindow\").create[this,this.itemList,x,y,z];\n       
-    focus = itemListWindow;\n        ab_focus = 1;\n    }\n\n    addItem[item]\n   
-    {\n        skin = item;\n        this.itemList.add[item];\n        if (itemListWindow
-    != null)\n        {\n            itemListWindow.createElements[];\n        }\n   
+    }\n\n    clicked[]\n    {\n        deleteWindows[];\n        itemListWindow =
+    (duplicate = \"ItemListWindow\").create[this,this.itemList,x,y,z];\n        focus
+    = itemListWindow;\n        ab_focus = 1;\n    }\n\n    addItem[item]\n    {\n       
+    skin = item;\n        this.itemList.add[item];\n        if (itemListWindow !=
+    null)\n        {\n            itemListWindow.createElements[];\n        }\n   
     }\n\n    replaceUISE[uise]\n    {\n        replace = uise;\n    }\n\n    deleteWindows[]\n   
     {\n        if (this.itemListWindow != null) { delete = itemListWindow; }\n       
     itemListWindow = null;\n    }\n}"

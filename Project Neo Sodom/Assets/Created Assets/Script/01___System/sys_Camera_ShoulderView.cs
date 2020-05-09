@@ -4,7 +4,7 @@ using System.Collections;
 public class sys_Camera_ShoulderView : MonoBehaviour
 {
     private Transform target = null;
-    private scr_Person player = null;
+    private Character player = null;
 
     [SerializeField] private GameObject UI_AimLazor = null;
     private float UI_AimLazor_alpha = 0f;
@@ -104,7 +104,7 @@ public class sys_Camera_ShoulderView : MonoBehaviour
         }
         if ( target != null )
         {
-            player = target.GetComponent<scr_Person>();
+            player = target.GetComponent<Character>();
             target = player.getBone("head");
             
             if ( player != null )
@@ -171,7 +171,7 @@ public class sys_Camera_ShoulderView : MonoBehaviour
 
             if (player != null )
             {
-                if (player.isAimmingProper())
+                if (player.isAimmingProper() && player.getState_Armed())
                 {
                     //UI Configure
                     UI_AimLazor_length = 500f;

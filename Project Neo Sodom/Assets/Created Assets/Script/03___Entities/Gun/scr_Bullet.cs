@@ -50,7 +50,7 @@ public class scr_Bullet : MonoBehaviour
                 if (hit)
                 {
                     //Damage
-                    scr_PersonController pc = Util.findTopComponent<scr_PersonController>(hitPoint.transform);
+                    CharacterHandler pc = Util.findTopComponent<CharacterHandler>(hitPoint.transform);
                     if (pc != null)
                     {
                         pc.getPerson().blood -= damage;

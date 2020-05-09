@@ -11,7 +11,7 @@ public class sys_Interactable : MonoBehaviour
     private bool interactable = true;
     private Vector3 iconScale = Vector3.zero;
 
-    private scr_Person user = null;
+    private Character user = null;
 
     private bool isSetUp = false;
 
@@ -80,9 +80,9 @@ public class sys_Interactable : MonoBehaviour
     public void setInteractable(bool interactable) { this.interactable = interactable; }
     public void makeItShine(bool shining) { iconScale = shining && interactable ? Vector3.one * 2 : Vector3.zero; }
     public void setIconPosition(Vector3 position) { icon.transform.position = position; }
-    public scr_Person getUser() { return user; }
+    public Character getUser() { return user; }
     public float getInteractionHoldTime() { return interactionHoldTime; }
-    public void interact(scr_Person interactor, float keyPressedTime)
+    public void interact(Character interactor, float keyPressedTime)
     {
         // * Error Cases ####################################################################################################################################
         if (interactor == null || comp_UISystem == null) { return; }
@@ -106,7 +106,6 @@ public class sys_Interactable : MonoBehaviour
             if (keyPressedTime < interactionHoldTime)
             {
                 sys_Item holdingItem = interactor.getHoldingObject();
-                user = interactor;
 
                 // If there is nothing in the hand, Grab the current Container
                 if (holdingItem == null)
@@ -128,6 +127,7 @@ public class sys_Interactable : MonoBehaviour
             // Key Held Long **************************************************
             else
             {
+                user = interactor;
                 comp_UISystem.activate();
                 comp_Container.useUISAPI("clicked", new List<UIS_Data>());
             }

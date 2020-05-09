@@ -51,7 +51,7 @@ MonoBehaviour:
       ambientOnly: 0
       highPrecision: 0
   screenSpaceReflection:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       reflection:
         blendType: 0
@@ -101,10 +101,10 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.5
+        intensity: 0.59
         threshold: 1.1
-        softKnee: 0.5
-        radius: 4
+        softKnee: 0.624
+        radius: 3.42
         antiFlicker: 0
       lensDirt:
         texture: {fileID: 0}
@@ -122,26 +122,26 @@ MonoBehaviour:
         neutralWhiteClip: 10
       basic:
         postExposure: 2
-        temperature: -0
-        tint: -7
+        temperature: 0.6
+        tint: -15
         hueShift: 0
-        saturation: 0.573
-        contrast: 0.58
+        saturation: 0.615
+        contrast: 0.637
       channelMixer:
-        red: {x: 0.93, y: 0, z: -0.1}
-        green: {x: 0, y: 1.14, z: 0}
-        blue: {x: 0.07, y: 0, z: 1.27}
-        currentEditingChannel: 2
+        red: {x: 1.13, y: 0, z: 0}
+        green: {x: 0, y: 1, z: 0}
+        blue: {x: 0, y: 0, z: 1}
+        currentEditingChannel: 0
       colorWheels:
-        mode: 0
+        mode: 1
         log:
           slope: {r: 1, g: 1, b: 1, a: 0}
           power: {r: 1, g: 1, b: 1, a: 0}
           offset: {r: 1, g: 1, b: 1, a: 0}
         linear:
-          lift: {r: 1, g: 1, b: 1, a: 0}
-          gamma: {r: 1, g: 1, b: 1, a: 0}
-          gain: {r: 1, g: 1, b: 1, a: 0}
+          lift: {r: 0, g: 0, b: 0, a: 0}
+          gamma: {r: 0, g: 0, b: 0, a: 0}
+          gain: {r: 0, g: 0, b: 0, a: 0}
       curves:
         master:
           curve:
@@ -150,8 +150,26 @@ MonoBehaviour:
             - serializedVersion: 3
               time: 0
               value: 0
-              inSlope: 1
-              outSlope: 1
+              inSlope: 0.6663293
+              outSlope: 0.6663293
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 0.23327306
+              value: 0.25563908
+              inSlope: 0.9239769
+              outSlope: 0.9239769
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 0.5443038
+              value: 0.5827068
+              inSlope: 0.6084714
+              outSlope: 0.6084714
               tangentMode: 0
               weightedMode: 0
               inWeight: 0
@@ -159,8 +177,8 @@ MonoBehaviour:
             - serializedVersion: 3
               time: 1
               value: 1
-              inSlope: 2.4378927
-              outSlope: 2.4378927
+              inSlope: -0
+              outSlope: -0
               tangentMode: 0
               weightedMode: 0
               inWeight: 0
@@ -178,17 +196,26 @@ MonoBehaviour:
             - serializedVersion: 3
               time: 0
               value: 0
-              inSlope: 1
-              outSlope: 1
+              inSlope: 0.70888865
+              outSlope: 0.70888865
               tangentMode: 0
               weightedMode: 0
               inWeight: 0
               outWeight: 0
             - serializedVersion: 3
-              time: 0.5949821
+              time: 0.48902822
+              value: 0.52666664
+              inSlope: 2.9910028
+              outSlope: 2.9910028
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
               value: 1
-              inSlope: -0
-              outSlope: -0
+              inSlope: 1
+              outSlope: 1
               tangentMode: 0
               weightedMode: 0
               inWeight: 0
@@ -205,7 +232,16 @@ MonoBehaviour:
             m_Curve:
             - serializedVersion: 3
               time: 0
-              value: 0
+              value: 0.0057471395
+              inSlope: 1
+              outSlope: 1
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 0.5830721
+              value: 0.44
               inSlope: 1
               outSlope: 1
               tangentMode: 0
@@ -215,8 +251,8 @@ MonoBehaviour:
             - serializedVersion: 3
               time: 1
               value: 1
-              inSlope: 1.0099548
-              outSlope: 1.0099548
+              inSlope: 1
+              outSlope: 1
               tangentMode: 0
               weightedMode: 0
               inWeight: 0
@@ -233,9 +269,18 @@ MonoBehaviour:
             m_Curve:
             - serializedVersion: 3
               time: 0
-              value: 0
-              inSlope: 1
-              outSlope: 1
+              value: 0.015037596
+              inSlope: 1.0394735
+              outSlope: 1.0394735
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 0.48902822
+              value: 0.45333332
+              inSlope: 0.3895953
+              outSlope: 0.3895953
               tangentMode: 0
               weightedMode: 0
               inWeight: 0
@@ -296,9 +341,9 @@ MonoBehaviour:
           m_ZeroValue: 0.5
           m_Range: 1
         e_CurrentEditingCurve: 0
-        e_CurveY: 1
-        e_CurveR: 1
-        e_CurveG: 0
+        e_CurveY: 0
+        e_CurveR: 0
+        e_CurveG: 1
         e_CurveB: 0
   userLut:
     m_Enabled: 0
@@ -311,12 +356,12 @@ MonoBehaviour:
       spectralTexture: {fileID: 0}
       intensity: 1
   grain:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       colored: 0
-      intensity: 0.202
-      size: 0.44
-      luminanceContribution: 1
+      intensity: 0.233
+      size: 0.822
+      luminanceContribution: 0
   vignette:
     m_Enabled: 0
     m_Settings:

@@ -11,7 +11,7 @@ public static class God
     public static float gravityAcceleration = 9.8f / 2f;
 
     public static sys_Camera_ShoulderView CAMERA = null;
-    public static scr_PersonController PLAYER = null;
+    public static CharacterHandler PLAYER = null;
 
-    public static List<scr_PersonController> NPCs = new List<scr_PersonController>();
+    public static List<CharacterHandler> NPCs = new List<CharacterHandler>();
 }

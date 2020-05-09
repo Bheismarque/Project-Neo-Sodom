@@ -109,7 +109,7 @@ public class UIS_Instruction_Equals : UIS_Instruction
             // Hold --------------------------------------------------------------------------------------------------------
             if (newVariableName.Equals("makeUserUse"))
             {
-                scr_Person user = commander.getMotherScript().getOwner().getSystem().getInteractable().getUser();
+                Character user = commander.getMotherScript().getOwner().getSystem().getInteractable().getUser();
                 (UIS.UISO_LIST[(int)operand2.getData()]).getOwner().getSystem().getInteractable().interact(user, 0f);
 
                 destination.setData((int)operand2.getData(), UIS_Data_Type.Entity);
