@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AI_System
 {
@@ -9,13 +8,37 @@ namespace AI_System
         public List<Description> outcomes = new List<Description>();
     }
 
-    public class Description
+    public interface Description
     {
-        public Time when;
-        public Being where;
-        public Being subjective;
-        public Action does;
-        public Being objective;
+    }
+
+    public class Description_State : Description
+    {
+        private Being Subject;
+        private StateDescription Verb;
+        private Being Property;
+    }
+
+    public class Description_Action : Description
+    {
+        private Being Subject;
+        private Action Verb;
+        private Being Object;
+    }
+
+    public class Description_Service : Description
+    {
+        private Being Subject;
+        private Action Service;
+        private Being IndirectObject;
+        private Being DirectObject;
+    }
+
+    public class Description_Affect : Description
+    {
+        private Being Subject;
+        private Action Affect;
+        private Description ObjectAffect;
     }
 
     public class Time
@@ -25,14 +48,12 @@ namespace AI_System
 
     public class Being
     {
-        public enum relativePosition
-        {
-            At,
-            In, Out,
-            Above, Below, NextTo, InFrontOf, BehindOf,
-            On, Beneath, RightSideOf, LeftSideOf, FrontSideOf, BackSideOf
-        }
-        public relativePosition relativeTo;
+    }
+
+    public enum StateDescription
+    {
+        Be,
+        Feel, Taste, Smell, Sound, Look
     }
 
     public class Action
